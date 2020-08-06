@@ -35,7 +35,7 @@ public class EmployeeControleller {
     }
 
     //http://localhost:8080/empData/employee/4
-    @PutMapping("/employee/{empId}")
+    @RequestMapping(value="/employee/{empId}", method = RequestMethod.PUT)
     public Employee updateEmployee(@PathVariable(value = "empId") Long employeeId, @RequestBody Employee employeeDetails) {
         Employee employee = employeeRepository.findById(employeeId)
                 .orElseThrow(() -> new ResourceNotFoundException("Employee", "empId", employeeId));
@@ -46,7 +46,7 @@ public class EmployeeControleller {
     }
    
     //http://localhost:8080/empData/employee/4
-    @DeleteMapping("/employee/{empId}")
+    @RequestMapping(value="/employee/{empId}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteEmployee(@PathVariable(value = "empId") Long employeeId) {
         Employee employee = employeeRepository.findById(employeeId)
                 .orElseThrow(() -> new ResourceNotFoundException("Employee", "empId", employeeId));
