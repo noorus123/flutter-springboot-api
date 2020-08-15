@@ -9,30 +9,29 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.flutter</groupId>
-	<artifactId>mysql-flutter-connect</artifactId>
+	<artifactId>mysql-flutter-login</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>mysql-flutter-connect</name>
-	<description>MySql connect flutter project for Spring Boot</description>
-	
+	<name>mysql-flutter-login</name>
+	<description>flutter project for Spring Boot</description>
 
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
 
-	<dependencies>	
-		
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -44,8 +43,7 @@
 					<artifactId>junit-vintage-engine</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency>
-		
+		</dependency>		
 	</dependencies>
 
 	<build>

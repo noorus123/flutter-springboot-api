@@ -1,0 +1,6 @@
+CREATE TABLE `user` (
+	`phone`VARCHAR (300),
+	`user_name` VARCHAR (300)
+); 
+INSERT INTO `user` (`phone`, `user_name`) VALUES('7406040452','FBSphere');
+INSERT INTO `user` (`phone`, `user_name`) VALUES('8532885251','FBKari');
