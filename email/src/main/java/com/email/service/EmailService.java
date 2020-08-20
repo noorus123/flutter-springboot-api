@@ -1,6 +1,8 @@
 package com.email.service;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -12,13 +14,25 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
+
 import com.email.model.EmailConfiguration;
+
+import freemarker.template.Configuration;
+import freemarker.template.Template;
 
 @Service
 public class EmailService {
 	
 	@Autowired
 	private EmailConfiguration email;
+	
+	private final Configuration templates;
+	
+	@Autowired
+	EmailService(Configuration templates){
+        this.templates = templates;
+    }
 	
 	public Boolean generateMail(){
 		Properties props = new Properties();
@@ -48,9 +62,10 @@ public class EmailService {
           msg.addHeader("Content-Transfer-Encoding", "8bit"); 
           msg.setFrom(new InternetAddress(email.getFromEmail(), "Family app .....")); 
           msg.setReplyTo(InternetAddress.parse(email.getReplyTo(), false)); 
-          msg.setSubject(email.getSubject(), UTF); 
-          msg.setText(email.getBody()+" "+"Text bodyyyyyyyyyy ....", UTF); 
+          msg.setSubject(email.getSubject(), UTF);            
           msg.setSentDate(new Date());
+          //msg.setText(email.getBody()+" "+"Text bodyyyyyyyyyy ....", UTF);
+          msg.setContent(getBodyForEmailVerificationLink(), "text/html");
  
           msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse("nooruskhan786@gmail.com", false));
           Transport.send(msg); 
@@ -60,5 +75,18 @@ public class EmailService {
           mailFlag = Boolean.FALSE;
         }
 		return mailFlag;
+    }
+    
+    private String getBodyForEmailVerificationLink() {
+    	String body=null;
+    	try {
+            Template t = templates.getTemplate("email-verification.ftl");
+            Map<String, String> map = new HashMap<>();
+            map.put("VERIFICATION_URL", "http://localhost:8080/email/emailVerified/tinkujiya");
+            body = FreeMarkerTemplateUtils.processTemplateIntoString(t, map);
+        } catch (Exception ex) {
+        	System.out.println("failed in preparing verification link"+ ex.getMessage());
+        }
+    	return body;    	
     }
 }
