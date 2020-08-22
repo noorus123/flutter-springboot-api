@@ -6,4 +6,4 @@ ${VERIFICATION_URL}<br/>
 
 If you did not sign up for a Family account please disregard this email.<br/>
 
-The Hello Family team,
+The Family team,
