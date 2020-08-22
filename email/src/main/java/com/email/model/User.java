@@ -3,8 +3,6 @@ package com.email.model;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Id;
@@ -14,7 +12,6 @@ import javax.persistence.Id;
 public class User {
 
 	@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String userId;  // In DB this field must be user_id, if not created manually, at start of server this will get created automatically.
 	private String userName; // In DB this field must be user_name, if not created manually, at start of server this will get created automatically.
 	private String email;
@@ -54,8 +51,4 @@ public class User {
 	public void setVerificationStatus(String verificationStatus) {
 		this.verificationStatus = verificationStatus;
 	}
-	
-	
-	
-	
 }

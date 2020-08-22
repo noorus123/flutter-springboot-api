@@ -18,6 +18,7 @@ public class EmailConfiguration {
 	private String port;
 	private String auth;
 	private String enable;
+	private String emailVerificationLinkURL;
 	
 	
 	public EmailConfiguration() {
@@ -120,6 +121,12 @@ public class EmailConfiguration {
 	public void setEnable(String enable) {
 		this.enable = enable;
 	}
-	
-	
+
+	public void setEmailVerificationLinkURL(String emailVerificationLinkURL) {
+		this.emailVerificationLinkURL = emailVerificationLinkURL;
+	}
+
+	public String getEmailVerificationLinkURL() {
+		return emailVerificationLinkURL;
+	}	
 }

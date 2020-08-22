@@ -7,31 +7,30 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-//import org.springframework.data.annotation.Transient;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.email.util.DateUtil;
 
 @Entity
-@Table(name = "verificationToken")
+@Table(name = "verification_token") 
 public class VerificationToken {
-
+	
+	@Transient 
 	public final int EXPIRATION = 1440 ; //60 * 24
 	public static final String 	TOKEN_SEPARATOR = ":separator:";
     	 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;  
-    
-	 /*
-	  @Transient public static final String SEQUENCE_NAME = "tokens_sequence";
-	 */   
+ 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "userId", nullable = false)
-    private User user;     
-    private String verificationURL;
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user; 
+    
+    private String verificationUrl;
     private String createDate;
     private String token;    
    
@@ -64,19 +63,16 @@ public class VerificationToken {
 		this.user = user;
 	}
 	
-	/*
-	 public static String getSequenceName() { return SEQUENCE_NAME; }
-	 */
 	
 	public static String getTokenSeparator() {
 		return TOKEN_SEPARATOR;
 	}
-	public String getVerificationURL() {
-		return verificationURL;
+	public String getVerificationUrl() {
+		return verificationUrl;
 	}
 
-	public void setVerificationURL(String verificationURL) {
-		this.verificationURL = verificationURL;
+	public void setVerificationUrl(String verificationURL) {
+		this.verificationUrl = verificationURL;
 	}
 	public String getCreateDate() {
 		return createDate;
@@ -88,10 +84,6 @@ public class VerificationToken {
 	@Override
 	public String toString() {
 		return "VerificationToken [id=" + id + ", token=" + token + ", user=" + user + ", verificationURL="
-				+ verificationURL + ", createDate=" + createDate + "]";
+				+ verificationUrl + ", createDate=" + createDate + "]";
 	}   
-	
-	
-	
-	
 }

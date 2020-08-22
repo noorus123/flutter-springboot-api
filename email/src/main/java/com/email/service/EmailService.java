@@ -30,12 +30,7 @@ import freemarker.template.Template;
 
 @Service
 public class EmailService {	
-	
-	private static final String EMAIL_VERIFICATION_URL = "http://localhost:8080/email/emailVerified/";    
-	
-	/*@Autowired
-	SequenceGeneratorService sequenceService;*/
-	
+			
 	@Autowired
 	private EmailConfiguration email;
 	
@@ -56,8 +51,6 @@ public class EmailService {
 	
 	public Boolean generateMail(User user){
 		Properties props = new Properties();
-		System.out.println("email.getHost()"+email.getHost());
-		System.out.println("email.getPort()"+email.getPort());
 		props.put("mail.smtp.host", email.getHost()); 
 		props.put("mail.smtp.port", email.getPort()); 
 		props.put("mail.smtp.auth", email.getAuth()); 
@@ -84,10 +77,8 @@ public class EmailService {
           msg.setReplyTo(InternetAddress.parse(email.getReplyTo(), false)); 
           msg.setSubject(email.getSubject(), UTF);            
           msg.setSentDate(new Date());
-          //msg.setText(email.getBody()+" "+"Text bodyyyyyyyyyy ....", UTF);
           msg.setContent(getBodyForEmailVerificationLink(user), "text/html");
- 
-          msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse("nooruskhan786@gmail.com", false));
+          msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(user.getEmail(), false));
           Transport.send(msg); 
           updateVerificationLinkStatus(verificationToken, VerificationStatus.UNVERIFIED.getVerificationStatus());
           mailFlag = Boolean.TRUE;
@@ -102,7 +93,6 @@ public class EmailService {
     	String body=null;
     	try {
             Template t = templates.getTemplate("email-verification.ftl");
-            System.out.println("user.toString() ====>>>>"+user.toString());
             Map<String, String> map = getVerificationTokenMap(user);
             body = FreeMarkerTemplateUtils.processTemplateIntoString(t, map);
         } catch (Exception ex) {
@@ -113,13 +103,12 @@ public class EmailService {
 
 	private Map<String, String> getVerificationTokenMap(User user) {
 		Map<String, String> map = new HashMap<>();
-		//verificationToken.setId(sequenceService.generateSequence(VerificationToken.SEQUENCE_NAME));
 		String uniqueKey = UUID.randomUUID().toString();
 		verificationToken.setToken(uniqueKey);
 		String originalTokenString = user.getUserName()+VerificationToken.TOKEN_SEPARATOR+uniqueKey;
 		String encodedString = encoderDecoderService.encodeString(originalTokenString);
-		String encodedVerificationUrl = EMAIL_VERIFICATION_URL+encodedString;
-		verificationToken.setVerificationURL(encodedVerificationUrl);
+		String encodedVerificationUrl = email.getEmailVerificationLinkURL()+encodedString;
+		verificationToken.setVerificationUrl(encodedVerificationUrl);
 		map.put("VERIFICATION_URL", encodedVerificationUrl);
 		verificationToken.setUser(user);
 		System.out.println(user.toString());
