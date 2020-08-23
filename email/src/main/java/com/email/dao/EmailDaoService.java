@@ -58,4 +58,12 @@ public class EmailDaoService {
 		}		
 		return vt;
 	}
+
+	public User getUserByEmail(String email) {
+		User usr = null;
+		if(!StringUtils.isEmpty(email)) {
+			usr = userRepository.findByEmail(email);
+		}		
+		return usr;
+	}
 }

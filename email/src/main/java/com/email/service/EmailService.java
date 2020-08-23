@@ -13,6 +13,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
@@ -20,10 +21,13 @@ import org.springframework.util.StringUtils;
 
 import com.email.dao.EmailDaoService;
 import com.email.model.EmailConfiguration;
+import com.email.model.IdGenerator;
 import com.email.model.User;
 import com.email.model.VerificationStatus;
 import com.email.model.VerificationToken;
 import com.email.util.DateUtil;
+import com.email.util.EncoderDecoderUtil;
+import com.email.util.PasswordUtil;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -35,7 +39,7 @@ public class EmailService {
 	private EmailConfiguration email;
 	
 	@Autowired
-	EncoderDecoderService encoderDecoderService;
+	private JasyptEncryptorService jasyptEncryptorService;
 	
 	@Autowired
 	EmailDaoService emailDaoService;
@@ -46,6 +50,8 @@ public class EmailService {
 	EmailService(Configuration templates){
         this.templates = templates;
     }
+		
+	
 	
 	VerificationToken verificationToken = new VerificationToken();
 	
@@ -58,7 +64,7 @@ public class EmailService {
 
 		Authenticator auth = new Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(email.getFromEmail(), email.getPassword());
+				return new PasswordAuthentication(email.getFromEmail(), jasyptEncryptorService.getApplicationEmailSendingPassword());
 			}
 		};
 		return sendEmail(Session.getInstance(props, auth),email,user);	
@@ -105,8 +111,8 @@ public class EmailService {
 		Map<String, String> map = new HashMap<>();
 		String uniqueKey = UUID.randomUUID().toString();
 		verificationToken.setToken(uniqueKey);
-		String originalTokenString = user.getUserName()+VerificationToken.TOKEN_SEPARATOR+uniqueKey;
-		String encodedString = encoderDecoderService.encodeString(originalTokenString);
+		String originalTokenString = user.getName()+VerificationToken.TOKEN_SEPARATOR+uniqueKey;
+		String encodedString = EncoderDecoderUtil.encodeString(originalTokenString);
 		String encodedVerificationUrl = email.getEmailVerificationLinkURL()+encodedString;
 		verificationToken.setVerificationUrl(encodedVerificationUrl);
 		map.put("VERIFICATION_URL", encodedVerificationUrl);
@@ -156,12 +162,40 @@ public class EmailService {
 	public String getTokenFromEncodedURLString(String encodedString){
 		String token = "";
 		if(! StringUtils.isEmpty(encodedString)) {
-			String originalString = encoderDecoderService.decodeString(encodedString);
+			String originalString = EncoderDecoderUtil.decodeString(encodedString);
 			String originalValues[] = originalString.split(VerificationToken.TOKEN_SEPARATOR);
 			if(originalValues!=null && originalValues.length == 2) {
 				token = originalValues[1];
 			}			
 		}	
 		return token;
+	}	
+	
+	public String getSafePassword(String password) {
+		String hPassword = "";
+		if(! StringUtils.isEmpty(password)){
+			hPassword = PasswordUtil.hashPassword(password);
+		}		
+		return hPassword;		
+	}
+	
+	public String generateUserId(String email) {
+		String userid = "";
+		if(!StringUtils.isEmpty(email)) {
+			userid = IdGenerator.MAIL.getIdGenerator() + email;
+		}
+		return userid;
+	}
+
+	public User getUserByEmail(String email) {
+		System.out.println("service email :: "+email);
+		User usr = null;
+		if(!StringUtils.isEmpty(email)) {
+			usr = emailDaoService.getUserByEmail(email);
+			if(usr!=null && usr.getVerificationStatus().equalsIgnoreCase(VerificationStatus.VERIFIED.getVerificationStatus())) {
+	        	return usr;
+	        }
+		}
+		return null;
 	}	
 }

@@ -1,13 +1,10 @@
-package com.email.service;
+package com.email.util;
 
 import java.util.Base64;
 
-import org.springframework.stereotype.Service;
-
-@Service
-public class EncoderDecoderService {
-
-	public String encodeString(String originalString){
+public class EncoderDecoderUtil {
+	
+	public static String encodeString(String originalString){
 		String encodedString = null;
 		if(originalString != null) {
 			encodedString =  Base64.getUrlEncoder().encodeToString(originalString.getBytes());
@@ -15,7 +12,7 @@ public class EncoderDecoderService {
 		return encodedString;		
 	}
 
-	public String decodeString(String encodedString){
+	public static String decodeString(String encodedString){
 		String originalString = null;
 		if(encodedString != null) {
 			byte[] decodedBytes = Base64.getUrlDecoder().decode(encodedString);
@@ -23,5 +20,4 @@ public class EncoderDecoderService {
 		}		
 		return originalString;		
 	}
-
 }
