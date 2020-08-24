@@ -8,7 +8,6 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import com.email.model.User;
-import com.email.model.VerificationStatus;
 import com.email.model.VerificationToken;
 import com.email.repository.UserRepository;
 import com.email.repository.VerificationTokenRepository;
@@ -65,5 +64,18 @@ public class EmailDaoService {
 			usr = userRepository.findByEmail(email);
 		}		
 		return usr;
+	}
+
+	public VerificationToken getVerificationTokenByUser(User user) {
+		VerificationToken vt = null;
+		if(user != null) {
+			List<VerificationToken> vList = verificationTokenRepository.findByUser(user);
+			if(!CollectionUtils.isEmpty(vList)) {
+				vt = vList.get(0);
+			}else {
+				System.out.println("getVerificationTokenByUser :: get opertion failed ");
+			}
+		}		
+		return vt;		
 	}
 }

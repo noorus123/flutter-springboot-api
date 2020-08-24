@@ -50,10 +50,6 @@ public class EmailService {
 	EmailService(Configuration templates){
         this.templates = templates;
     }
-		
-	
-	
-	VerificationToken verificationToken = new VerificationToken();
 	
 	public Boolean generateMail(User user){
 		Properties props = new Properties();
@@ -85,8 +81,8 @@ public class EmailService {
           msg.setSentDate(new Date());
           msg.setContent(getBodyForEmailVerificationLink(user), "text/html");
           msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(user.getEmail(), false));
-          Transport.send(msg); 
-          updateVerificationLinkStatus(verificationToken, VerificationStatus.UNVERIFIED.getVerificationStatus());
+          Transport.send(msg);
+          getVerificationTokenAndUpdateStatus(user);
           mailFlag = Boolean.TRUE;
         }
         catch (Exception e) {
@@ -107,22 +103,28 @@ public class EmailService {
     	return body;    	
     }
 
-	private Map<String, String> getVerificationTokenMap(User user) {
-		Map<String, String> map = new HashMap<>();
-		String uniqueKey = UUID.randomUUID().toString();
-		verificationToken.setToken(uniqueKey);
-		String originalTokenString = user.getName()+VerificationToken.TOKEN_SEPARATOR+uniqueKey;
-		String encodedString = EncoderDecoderUtil.encodeString(originalTokenString);
-		String encodedVerificationUrl = email.getEmailVerificationLinkURL()+encodedString;
-		verificationToken.setVerificationUrl(encodedVerificationUrl);
-		map.put("VERIFICATION_URL", encodedVerificationUrl);
-		verificationToken.setUser(user);
-		System.out.println(user.toString());
-		emailDaoService.saveUser(user);
-		System.out.println(verificationToken.toString());
-		emailDaoService.saveVerificationToken(verificationToken);
-		return map;
-	}
+    private Map<String, String> getVerificationTokenMap(User user) {
+    	Map<String, String> map = new HashMap<>();
+    	VerificationToken verificationToken = emailDaoService.getVerificationTokenByUser(user);
+    	if(verificationToken == null) {
+    		verificationToken = new VerificationToken();
+    		String uniqueKey = UUID.randomUUID().toString();
+    		verificationToken.setToken(uniqueKey);
+    		String originalTokenString = user.getName()+VerificationToken.TOKEN_SEPARATOR+uniqueKey;
+    		String encodedString = EncoderDecoderUtil.encodeString(originalTokenString);
+    		String encodedVerificationUrl = email.getEmailVerificationLinkURL()+encodedString;
+    		verificationToken.setVerificationUrl(encodedVerificationUrl);
+    		map.put("VERIFICATION_URL", encodedVerificationUrl);
+    		verificationToken.setUser(user);
+    		System.out.println(user.toString());
+    		emailDaoService.saveUser(user);
+    		System.out.println(verificationToken.toString());
+    		emailDaoService.saveVerificationToken(verificationToken);    		
+    	} else {
+    		map.put("VERIFICATION_URL", verificationToken.getVerificationUrl());    		
+    	}
+    	return map;
+    }
 	
 	
 	public boolean verifyLinkAndUpdateStatus(String token) {
@@ -155,8 +157,14 @@ public class EmailService {
 		return isValid;
 	}
 	
+	
 	private void updateVerificationLinkStatus(VerificationToken verificationToken, String status) {
-		emailDaoService.updateUserEmailVerificationStatus(verificationToken, status);		
+		emailDaoService.updateUserEmailVerificationStatus(verificationToken, status);
+	}
+
+	private void getVerificationTokenAndUpdateStatus(User user) {
+		VerificationToken verificationToken = emailDaoService.getVerificationTokenByUser(user);
+		updateVerificationLinkStatus(verificationToken, VerificationStatus.UNVERIFIED.getVerificationStatus());		
 	}
 	
 	public String getTokenFromEncodedURLString(String encodedString){
@@ -191,11 +199,8 @@ public class EmailService {
 		System.out.println("service email :: "+email);
 		User usr = null;
 		if(!StringUtils.isEmpty(email)) {
-			usr = emailDaoService.getUserByEmail(email);
-			if(usr!=null && usr.getVerificationStatus().equalsIgnoreCase(VerificationStatus.VERIFIED.getVerificationStatus())) {
-	        	return usr;
-	        }
+			usr = emailDaoService.getUserByEmail(email);	        
 		}
-		return null;
+		return usr;
 	}	
 }

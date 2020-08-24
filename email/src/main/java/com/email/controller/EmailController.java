@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.email.model.User;
+import com.email.model.VerificationStatus;
 import com.email.service.EmailService;
 
 @RestController
@@ -18,8 +19,8 @@ public class EmailController {
 	EmailService service;
 
 	@RequestMapping(value = "/sendEmail", method = RequestMethod.POST)
-	public String sendMail(@RequestBody User user) {
-		String message = "";
+	public User sendMail(@RequestBody User user) {
+		User usr = null;
 		System.out.println("sending email....");
 		User u = new User();
 		u.setEmail(user.getEmail());
@@ -28,14 +29,14 @@ public class EmailController {
 		u.setName(user.getName());
 		try {			
 			if(service.generateMail(u)) {
-				message = "Mail sent successfully";
-				System.out.println("Mail sent successfully");
+				System.out.println("Mail sent successfully to user ");
+				usr = service.getUserByEmail(user.getEmail());				
 			}			
 		}catch (Exception e) {
 			System.out.println("Failed sending email.... "+ e.getMessage());
 			
 		}
-		return message;
+		return usr;
 	}
 	
 	@RequestMapping(value = "/emailVerified/{encodedString}")
@@ -52,7 +53,11 @@ public class EmailController {
 	
 	@RequestMapping(value="/user/{email}", method = RequestMethod.GET)
     public User getUserByEmail(@PathVariable(value = "email") String email) {
-        User usr = service.getUserByEmail(email); 
-        return usr;
+		User u = null;
+        User usr = service.getUserByEmail(email);         
+        if(usr!=null && usr.getVerificationStatus().equalsIgnoreCase(VerificationStatus.VERIFIED.getVerificationStatus())) {
+        	u = usr;
+        }        
+        return u;
 	}
 }
