@@ -199,8 +199,28 @@ public class EmailService {
 		System.out.println("service email :: "+email);
 		User usr = null;
 		if(!StringUtils.isEmpty(email)) {
-			usr = emailDaoService.getUserByEmail(email);	        
+			usr = emailDaoService.getUserByEmail(email);	
 		}
 		return usr;
+	}
+
+	public User verifyUserByEmail(User user) {
+		User usr = null;
+		if(user != null && !StringUtils.isEmpty(user.getEmail())) {
+			User u = getUserByEmail(user.getEmail());
+			if((isPasswordVerified(user.getPassword(), u.getPassword())) &&
+				(u.getVerificationStatus().equals(VerificationStatus.VERIFIED.getVerificationStatus()))) {
+					usr = u;
+			}
+		}
+		return usr;
+	}
+
+	private boolean isPasswordVerified(String userPassword, String savedPassword) {
+		boolean isVerified = false;
+		if(!StringUtils.isEmpty(savedPassword) && !StringUtils.isEmpty(userPassword)) {
+			isVerified  = PasswordUtil.checkPassword(userPassword, savedPassword);
+		}
+		return isVerified;
 	}	
 }

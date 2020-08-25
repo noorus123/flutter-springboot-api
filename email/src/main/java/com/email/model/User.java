@@ -24,8 +24,8 @@ public class User {
 	public String getName() {
 		return name;
 	}
-	public void setName(String userName) {
-		this.name = userName;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getEmail() {
 		return email;
@@ -47,7 +47,7 @@ public class User {
 	}
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", userName=" + name + ", email=" + email + ", password=" + password
+		return "User [userId=" + userId + ", name=" + name + ", email=" + email + ", password=" + password
 				+ ", verificationStatus=" + verificationStatus + "]";
 	}
 	

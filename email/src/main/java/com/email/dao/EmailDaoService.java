@@ -33,8 +33,7 @@ public class EmailDaoService {
 			userRepository.save(user);
 		}else {
 			System.out.println("USER :: Save opertion failed ");
-		}
-		
+		}		
 	}
 
 	public void saveVerificationToken(VerificationToken verificationToken) {
@@ -59,6 +58,7 @@ public class EmailDaoService {
 	}
 
 	public User getUserByEmail(String email) {
+		System.out.println("dao email :: "+email);
 		User usr = null;
 		if(!StringUtils.isEmpty(email)) {
 			usr = userRepository.findByEmail(email);

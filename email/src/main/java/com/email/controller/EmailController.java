@@ -40,7 +40,7 @@ public class EmailController {
 	}
 	
 	@RequestMapping(value = "/emailVerified/{encodedString}")
-    public String verifyEmail(@PathVariable("encodedString") String encodedString) {
+    public String emailVerification(@PathVariable("encodedString") String encodedString) {
 		String message = "";		
 		String token = service.getTokenFromEncodedURLString(encodedString);		
 		if(service.verifyLinkAndUpdateStatus(token)) {
@@ -59,5 +59,12 @@ public class EmailController {
         	u = usr;
         }        
         return u;
+	}
+	
+	@RequestMapping(value = "/verifyEmail", method = RequestMethod.POST)
+	public User verifyMail(@RequestBody User user) {
+		System.out.println("user in controller :: "+user.toString());
+        User usr = service.verifyUserByEmail(user); 
+        return usr!=null ? usr : null;        
 	}
 }
