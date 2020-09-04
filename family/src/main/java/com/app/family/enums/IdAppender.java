@@ -1,10 +1,10 @@
 package com.app.family.enums;
 
 public enum IdAppender {
-	MAIL("mail_"),
+	EMAIL("mail_"),
 	FACEBOOK("fb_"),
 	GOOGLE("google_"),
-	PHONE("phone_");
+	PHONE("ph_");
 	
 	private final String text;
 	  
@@ -12,7 +12,7 @@ public enum IdAppender {
 	      this.text = idText;
 	  }
 	
-	public String getIdGenerator() {
+	public String getText() {
 	      return this.text;
 	  }
 }

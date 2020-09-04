@@ -13,34 +13,32 @@ import com.app.family.repository.LoginRepository;
 import com.app.family.repository.VerificationRepository;
 
 @Service
-public class EmailDaoService {
-	
+public class RepositoryService {
+
 	@Autowired
-	VerificationRepository verificationRepository;
-	
+	private LoginRepository loginRepository;
+
 	@Autowired
-	LoginRepository userRepository;
-	
-	public void updateUserEmailVerificationStatus(VerificationInfo verificationToken, String status) {
-		VerificationInfo vt = verificationRepository.findByToken(verificationToken.getToken()).get(0);
-        vt.setVerificationStatus(status);
-        verificationRepository.save(vt);
-	}
-	
-	public void saveUser(LoginInfo user) {
-		if(user != null) {
-			userRepository.save(user);
-		}else {
-			System.out.println("USER :: Save opertion failed ");
-		}		
+	private VerificationRepository verificationRepository;
+
+	public LoginInfo saveLoginInfo(LoginInfo u) {
+		System.out.println("executing ::: saveLoginInfo");
+		LoginInfo user = null;
+		if(u != null) {
+			user = loginRepository.save(u);
+		}
+		return user;
 	}
 
-	public void saveVerificationInfo(VerificationInfo verificationToken) {
-		if(verificationToken != null) {
-			verificationRepository.save(verificationToken);
+	public VerificationInfo saveVerificationInfo(VerificationInfo verificationInfo) {
+		System.out.println("executing ::: saveVerificationInfo");
+		VerificationInfo vi = null;
+		if(verificationInfo != null) {
+			vi = verificationRepository.save(verificationInfo);
 		}else {
 			System.out.println("VerificationToken :: Save opertion failed ");
-		}				
+		}	
+		return vi;
 	}
 	
 	public VerificationInfo getVerificationInfoByToken(String token) {
@@ -60,7 +58,7 @@ public class EmailDaoService {
 		System.out.println("dao email :: "+email);
 		LoginInfo usr = null;
 		if(!StringUtils.isEmpty(email)) {
-			usr = userRepository.findByEmail(email);
+			usr = loginRepository.findByEmail(email);
 			System.out.println("dao email retrieved user :: "+usr);
 		}		
 		return usr;
@@ -77,6 +75,22 @@ public class EmailDaoService {
 			}
 		}		
 		return vt;		
+	}
+	
+	public void updateUserEmailVerificationStatus(VerificationInfo verificationToken, String status) {
+		VerificationInfo vt = verificationRepository.findByToken(verificationToken.getToken()).get(0);
+        vt.setVerificationStatus(status);
+        verificationRepository.save(vt);
+	}
+
+	public LoginInfo getUserByPhone(String phone) {
+		System.out.println("dao phone :: "+phone);
+		LoginInfo usr = null;
+		if(!StringUtils.isEmpty(phone)) {
+			usr = loginRepository.findByPhone(phone);
+			System.out.println("dao phone retrieved user :: "+usr);
+		}		
+		return usr;
 	}
 
 }

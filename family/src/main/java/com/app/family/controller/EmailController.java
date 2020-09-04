@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.family.enums.SignInMode;
 import com.app.family.models.LoginInfo;
 import com.app.family.service.EmailService;
 
@@ -20,25 +19,17 @@ public class EmailController {
 	EmailService service;
 
 	@RequestMapping(value = "/sendEmail", method = RequestMethod.POST)
-	public LoginInfo sendMail(@RequestBody LoginInfo user) {
+	public LoginInfo sendMailAndAddUser(@RequestBody LoginInfo user) {
 		System.out.println("executing ::: sendEmail");
 		LoginInfo usr = null;
-		System.out.println("sending email....");
-		LoginInfo u = new LoginInfo();
-		u.setEmail(user.getEmail());
-		u.setSignInMode(SignInMode.EMAIL.getText());
-		u.setPassword(service.getSafePassword(user.getPassword()));
-		u.setLoginId(service.generateUserId(user.getEmail()));	
-		u.setName(user.getName());
-		System.out.println("controller ::: "+u.toString());
+		System.out.println("sending email....");		
 		try {			
-			if(service.generateMail(u)) {
+			if(service.generateMailAndAddUser(user)) {
 				System.out.println("Mail sent successfully to user ");
 				usr = service.getCreatedUserByEmail(user.getEmail());				
 			}			
 		}catch (Exception e) {
-			System.out.println("Failed sending email.... "+ e.getMessage());
-			
+			System.out.println("Failed sending email.... "+ e.getMessage());			
 		}
 		return usr;
 	}

@@ -4,8 +4,8 @@ public enum SignInMode {
 	
 	EMAIL("email"),
 	GOOGLE("google"),
-	PHONE("ph"),
-	FACEBOOK("fb");
+	PHONE("phone"),
+	FACEBOOK("facebook");
 	
 	private final String text;	
 

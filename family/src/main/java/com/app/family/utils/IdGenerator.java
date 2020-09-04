@@ -6,12 +6,6 @@ public class IdGenerator {
 	    private static final long sequenceMax = 65536;
 	    private static volatile long lastTimestamp = -1L;
 	    private static volatile long sequence = 0L;
-
-	    public static void main(String[] args) {
-			for (int i = 0; i < 10; i++) {
-	    		System.out.println(getUniqueId());
-			}	    	
-	    }
 	    
 	    public static String getUniqueId(){
 	    	Long generatedId = generateLongId();
@@ -41,7 +35,6 @@ public class IdGenerator {
 	        }
 	        return timestamp;
 	    }
-	
 }
 
 
