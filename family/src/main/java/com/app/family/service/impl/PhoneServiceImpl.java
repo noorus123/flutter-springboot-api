@@ -6,7 +6,6 @@ import org.springframework.util.StringUtils;
 
 import com.app.family.dao.RepositoryService;
 import com.app.family.enums.IdAppender;
-import com.app.family.enums.SignInMode;
 import com.app.family.models.LoginInfo;
 import com.app.family.service.PhoneService;
 import com.app.family.utils.LoginIdGenerator;
@@ -23,8 +22,7 @@ public class PhoneServiceImpl implements PhoneService{
 		System.out.println("executing ::: savePhoneUser");
 		LoginInfo user = null;
 		if(u != null) {	
-			u.setPassword(PasswordUtil.getSafePassword(u.getPassword()));
-			u.setSignInMode(SignInMode.PHONE.getText());		
+			u.setPassword(PasswordUtil.getSafePassword(u.getPassword()));					
 			u.setLoginId(LoginIdGenerator.generateUserId(u.getPhone(), IdAppender.PHONE.getText()));			
 			user = repositoryService.saveLoginInfo(u);			
 		}		

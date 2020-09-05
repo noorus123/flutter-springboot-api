@@ -92,5 +92,15 @@ public class RepositoryService {
 		}		
 		return usr;
 	}
+	
+	public LoginInfo getUserByFBId(String fbId) {
+		System.out.println("dao phone :: "+ fbId);
+		LoginInfo usr = null;
+		if(!StringUtils.isEmpty(fbId)) {
+			usr = loginRepository.findByFbId(fbId);
+			System.out.println("dao Fb retrieved user :: "+usr);
+		}		
+		return usr;
+	}
 
 }

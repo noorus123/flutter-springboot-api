@@ -20,10 +20,9 @@ import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import org.springframework.util.StringUtils;
 
 import com.app.family.dao.RepositoryService;
-import com.app.family.models.LoginInfo;
 import com.app.family.enums.IdAppender;
-import com.app.family.enums.SignInMode;
 import com.app.family.enums.VerificationStatus;
+import com.app.family.models.LoginInfo;
 import com.app.family.models.VerificationInfo;
 import com.app.family.service.EmailService;
 import com.app.family.service.JasyptEncryptorService;
@@ -58,7 +57,6 @@ public class EmailServiceImpl implements EmailService{
 	@Override
 	public Boolean generateMailAndAddUser(LoginInfo user){
 		
-		user.setSignInMode(SignInMode.EMAIL.getText());
 		user.setPassword(PasswordUtil.getSafePassword(user.getPassword()));
 		user.setLoginId(LoginIdGenerator.generateUserId(user.getEmail(), IdAppender.EMAIL.getText()));
 		

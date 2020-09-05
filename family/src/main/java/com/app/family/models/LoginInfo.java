@@ -14,6 +14,8 @@ public class LoginInfo {
 	private String password;
 	private String name;
 	private String phone;
+	private String fbId;
+	private String imgUrl;
 	
 	public LoginInfo() {
 		super();
@@ -67,9 +69,22 @@ public class LoginInfo {
 		this.phone = phone;
 	}
 
-	@Override
-	public String toString() {
-		return "LoginInfo [loginId=" + loginId + ", signInMode=" + signInMode + ", email=" + email + ", password="
-				+ password + ", name=" + name + ", phone=" + phone + "]";
-	}	
+	public String getFbId() {
+		return fbId;
+	}
+
+	public void setFbId(String fbId) {
+		this.fbId = fbId;
+	}
+
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
+	
+	
+
 }
