@@ -1,21 +1,19 @@
 package com.app.family.models;
 
-import com.app.family.enums.LocationType;
-
 public class Location {
 	
-	private LocationType locationType;
+	private String locationType;
 	private Address address;
 	
 	public Location() {
 		super();
-	}
+	}	
 
-	public LocationType getLocationType() {
+	public String getLocationType() {
 		return locationType;
 	}
 
-	public void setLocationType(LocationType locationType) {
+	public void setLocationType(String locationType) {
 		this.locationType = locationType;
 	}
 

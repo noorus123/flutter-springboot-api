@@ -3,7 +3,7 @@ package com.app.family.enums;
 public enum LocationType {
 	
 	NATIVE("native"),
-	CURRENTSTAY("currentStay");
+	CURRENT("current");
 	
 	private final String text;
 

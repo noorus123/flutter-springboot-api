@@ -15,6 +15,7 @@ public class LoginInfo {
 	private String name;
 	private String phone;
 	private String fbId;
+	private String gmail;
 	private String imgUrl;
 	
 	public LoginInfo() {
@@ -83,6 +84,14 @@ public class LoginInfo {
 
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
+	}
+
+	public String getGmail() {
+		return gmail;
+	}
+
+	public void setGmail(String gmail) {
+		this.gmail = gmail;
 	}
 	
 	

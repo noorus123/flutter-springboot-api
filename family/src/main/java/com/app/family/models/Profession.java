@@ -1,12 +1,10 @@
 package com.app.family.models;
 
-import com.app.family.enums.JobType;
-
 public class Profession {
 	
 	private String company;
 	private String designation;
-	private JobType jobType;
+	private String jobType;
 	
 	public Profession() {
 		super();
@@ -28,13 +26,15 @@ public class Profession {
 		this.designation = designation;
 	}
 
-	public JobType getJobType() {
+	public String getJobType() {
 		return jobType;
 	}
 
-	public void setJobType(JobType jobType) {
+	public void setJobType(String jobType) {
 		this.jobType = jobType;
 	}
+
+	
 	
 	
 }

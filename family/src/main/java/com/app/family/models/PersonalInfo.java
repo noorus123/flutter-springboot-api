@@ -6,29 +6,35 @@ import javax.persistence.Id;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.app.family.enums.Gender;
-import com.app.family.enums.MartialStatus;
-
 @Document
 public class PersonalInfo {
 	
 	@Id
+	private String _id;
 	private String personalId;
 	private String name;
 	private String fatherName;
 	private String motherName;
-	private Gender gender;
+	private String gender;
 	private String birthday;
-	private MartialStatus maritialStatus;
+	private String martialStatus;
+	private Contact contact;
 	private List<Degree> education;
-	private List<Location> locations;
-	private List<Contact> contacts;
+	private List<Location> locations;	
 	private List<Profession> professions; 
-	private List<Family> subscribedFamilies;
-	private List<Family> familiesAdmin;
+	private List<String> subscribedFamilies;
+	private List<String> familiesAdmin;
 	
 	public PersonalInfo() {
 		super();
+	}	
+
+	public String get_id() {
+		return _id;
+	}
+
+	public void set_id(String _id) {
+		this._id = _id;
 	}
 
 	public String getPersonalId() {
@@ -63,28 +69,28 @@ public class PersonalInfo {
 		this.motherName = motherName;
 	}
 
-	public Gender getGender() {
-		return gender;
-	}
-
-	public void setGender(Gender gender) {
-		this.gender = gender;
-	}
-
 	public String getBirthday() {
 		return birthday;
 	}
 
 	public void setBirthday(String birthday) {
 		this.birthday = birthday;
+	}	
+
+	public String getGender() {
+		return gender;
 	}
 
-	public MartialStatus getMaritialStatus() {
-		return maritialStatus;
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
-	public void setMaritialStatus(MartialStatus maritialStatus) {
-		this.maritialStatus = maritialStatus;
+	public String getMartialStatus() {
+		return martialStatus;
+	}
+
+	public void setMartialStatus(String martialStatus) {
+		this.martialStatus = martialStatus;
 	}
 
 	public List<Degree> getEducation() {
@@ -102,13 +108,13 @@ public class PersonalInfo {
 	public void setLocations(List<Location> locations) {
 		this.locations = locations;
 	}
-
-	public List<Contact> getContacts() {
-		return contacts;
+	
+	public Contact getContact() {
+		return contact;
 	}
 
-	public void setContacts(List<Contact> contacts) {
-		this.contacts = contacts;
+	public void setContact(Contact contact) {
+		this.contact = contact;
 	}
 
 	public List<Profession> getProfessions() {
@@ -119,19 +125,20 @@ public class PersonalInfo {
 		this.professions = professions;
 	}
 
-	public List<Family> getSubscribedFamilies() {
+	public List<String> getSubscribedFamilies() {
 		return subscribedFamilies;
 	}
 
-	public void setSubscribedFamilies(List<Family> subscribedFamilies) {
+	public void setSubscribedFamilies(List<String> subscribedFamilies) {
 		this.subscribedFamilies = subscribedFamilies;
 	}
 
-	public List<Family> getFamilyAdmins() {
+	public List<String> getFamiliesAdmin() {
 		return familiesAdmin;
 	}
 
-	public void setFamilyAdmins(List<Family> familyAdmins) {
-		this.familiesAdmin = familyAdmins;
-	}	
+	public void setFamiliesAdmin(List<String> familiesAdmin) {
+		this.familiesAdmin = familiesAdmin;
+	}
+	
 }

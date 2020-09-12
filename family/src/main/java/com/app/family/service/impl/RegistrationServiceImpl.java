@@ -36,7 +36,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 		}
 		if(u.getSignInMode().equals(SignInMode.GOOGLE.getText())) {
 			appender = IdAppender.GOOGLE.getText();
-			u.setLoginId(LoginIdGenerator.generateUserId(u.getEmail(), appender));	
+			u.setLoginId(LoginIdGenerator.generateUserId(u.getGmail(), appender));	
 		}
 		if(u.getSignInMode().equals(SignInMode.PHONE.getText())) {
 			appender = IdAppender.PHONE.getText();
@@ -66,9 +66,12 @@ public class RegistrationServiceImpl implements RegistrationService {
 		if(signInMode.equals(SignInMode.FACEBOOK.getText())) {
 			user = repositoryService.getUserByFBId(loginText);
 		}
-		if(signInMode.equals(SignInMode.GOOGLE.getText()) || signInMode.equals(SignInMode.EMAIL.getText())) {
+		if(signInMode.equals(SignInMode.GOOGLE.getText())) {
+			user = repositoryService.getUserByGmail(loginText);
+		}
+		if(signInMode.equals(SignInMode.EMAIL.getText())) {
 			user = repositoryService.getUserByEmail(loginText);
-		}		
+		}			
 		return user;
 	}
 

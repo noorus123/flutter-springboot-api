@@ -2,8 +2,8 @@ package com.app.family.enums;
 
 public enum JobType {
 	
-	PREVIOUSJOB("previous_job"),
-	CURRENTJOB("current_job");
+	PREVIOUSJOB("Previous"),
+	CURRENTJOB("Current");
 	
 	private final String text;
 

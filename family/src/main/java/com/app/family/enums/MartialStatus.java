@@ -3,7 +3,8 @@ package com.app.family.enums;
 public enum MartialStatus {
 	MARRIED("married"),
 	UNMARRIED("unmarried"),
-	DIVORCED("divorced");
+	DIVORCED("divorced"),
+	SEPARATED("separated");
 	
 	private final String text;
 

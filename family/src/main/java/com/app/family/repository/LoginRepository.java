@@ -10,5 +10,7 @@ import com.app.family.models.LoginInfo;
 public interface LoginRepository extends MongoRepository<LoginInfo, String> {
 	public LoginInfo findByEmail(String email);
 	public LoginInfo findByPhone(String phone);	
-	public LoginInfo findByFbId(String fbId);	
+	public LoginInfo findByFbId(String fbId);
+	public LoginInfo findByGmail(String gmail);	
+	
 }

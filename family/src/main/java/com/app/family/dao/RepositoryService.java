@@ -103,4 +103,14 @@ public class RepositoryService {
 		return usr;
 	}
 
+	public LoginInfo getUserByGmail(String gmail) {
+		System.out.println("dao gmail :: "+gmail);
+		LoginInfo usr = null;
+		if(!StringUtils.isEmpty(gmail)) {
+			usr = loginRepository.findByGmail(gmail);
+			System.out.println("dao gmail retrieved user :: "+usr);
+		}		
+		return usr;
+	}
+
 }
