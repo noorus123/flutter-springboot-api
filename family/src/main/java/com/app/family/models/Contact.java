@@ -2,37 +2,19 @@ package com.app.family.models;
 
 public class Contact {
 	
-	private String mobile;
-	private String whatsapp;
-	private String email;
+	private String contactMode;
+	private String contactText;
 	
-	public Contact() {
-		super();
+	public String getContactMode() {
+		return contactMode;
 	}
-
-	public String getMobile() {
-		return mobile;
+	public void setContactMode(String contactMode) {
+		this.contactMode = contactMode;
 	}
-
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
+	public String getContactText() {
+		return contactText;
 	}
-
-	public String getWhatsapp() {
-		return whatsapp;
-	}
-
-	public void setWhatsapp(String whatsapp) {
-		this.whatsapp = whatsapp;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
-	
+	public void setContactText(String contactText) {
+		this.contactText = contactText;
+	}	
 }

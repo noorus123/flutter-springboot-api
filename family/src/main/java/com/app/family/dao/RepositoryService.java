@@ -8,8 +8,10 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import com.app.family.models.LoginInfo;
+import com.app.family.models.PersonalInfo;
 import com.app.family.models.VerificationInfo;
 import com.app.family.repository.LoginRepository;
+import com.app.family.repository.PersonalInfoRepository;
 import com.app.family.repository.VerificationRepository;
 
 @Service
@@ -20,6 +22,9 @@ public class RepositoryService {
 
 	@Autowired
 	private VerificationRepository verificationRepository;
+	
+	@Autowired
+	private PersonalInfoRepository personalInfoRepository;
 
 	public LoginInfo saveLoginInfo(LoginInfo u) {
 		System.out.println("executing ::: saveLoginInfo");
@@ -111,6 +116,15 @@ public class RepositoryService {
 			System.out.println("dao gmail retrieved user :: "+usr);
 		}		
 		return usr;
+	}
+
+	public PersonalInfo savePersonalInfo(PersonalInfo u) {
+		System.out.println("executing ::: savePersonalInfo");
+		PersonalInfo user = null;
+		if(u != null) {
+			user = personalInfoRepository.save(u);
+		}
+		return user;
 	}
 
 }
