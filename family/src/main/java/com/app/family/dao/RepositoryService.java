@@ -127,4 +127,14 @@ public class RepositoryService {
 		return user;
 	}
 
+	public PersonalInfo getPersonalInfoByPersonalId(String loginId) {
+		System.out.println("dao :: "+ loginId);
+		PersonalInfo usr = null;
+		if(!StringUtils.isEmpty(loginId)) {
+			usr = personalInfoRepository.findByPersonalId(loginId);
+			System.out.println("dao retrieved user :: "+usr);
+		}		
+		return usr;
+	}
+
 }

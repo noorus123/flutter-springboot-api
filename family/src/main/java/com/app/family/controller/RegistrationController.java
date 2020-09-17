@@ -17,7 +17,7 @@ public class RegistrationController {
 	RegistrationService service;
 	
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
-	public LoginInfo addPhoneUser(@RequestBody LoginInfo user) {
+	public LoginInfo addUser(@RequestBody LoginInfo user) {
 		System.out.println("executing ::: addUser");
 		LoginInfo usr = null;		
 		try {			

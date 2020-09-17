@@ -2,6 +2,7 @@ package com.app.family.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.app.family.dao.RepositoryService;
 import com.app.family.models.PersonalInfo;
@@ -21,6 +22,15 @@ public class PersonalInfoServiceImpl implements PersonalInfoService {
 			user = repositoryService.savePersonalInfo(u);			
 		}		
 		return user;
+	}
+
+	@Override
+	public PersonalInfo getUserPersonalInfoByLoginId(String loginId) {
+		PersonalInfo usr = null;
+		if(!StringUtils.isEmpty(loginId)) {
+			usr = repositoryService.getPersonalInfoByPersonalId(loginId);
+		}		
+		return usr;	
 	}
 
 }

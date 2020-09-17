@@ -18,7 +18,7 @@ public class PersonalInfo {
 	private String gender;
 	private String birthday;
 	private String martialStatus;
-	private Contact contact;
+	private List<Contact> contacts;
 	private List<Degree> education;
 	private List<Location> locations;	
 	private List<Profession> professions; 
@@ -107,14 +107,14 @@ public class PersonalInfo {
 
 	public void setLocations(List<Location> locations) {
 		this.locations = locations;
-	}
-	
-	public Contact getContact() {
-		return contact;
+	}	
+
+	public List<Contact> getContacts() {
+		return contacts;
 	}
 
-	public void setContact(Contact contact) {
-		this.contact = contact;
+	public void setContacts(List<Contact> contacts) {
+		this.contacts = contacts;
 	}
 
 	public List<Profession> getProfessions() {
@@ -140,5 +140,15 @@ public class PersonalInfo {
 	public void setFamiliesAdmin(List<String> familiesAdmin) {
 		this.familiesAdmin = familiesAdmin;
 	}
+
+	@Override
+	public String toString() {
+		return "PersonalInfo [_id=" + _id + ", personalId=" + personalId + ", name=" + name + ", fatherName="
+				+ fatherName + ", motherName=" + motherName + ", gender=" + gender + ", birthday=" + birthday
+				+ ", martialStatus=" + martialStatus + ", contacts=" + contacts + ", education=" + education
+				+ ", locations=" + locations + ", professions=" + professions + ", subscribedFamilies="
+				+ subscribedFamilies + ", familiesAdmin=" + familiesAdmin + "]";
+	}
+	
 	
 }

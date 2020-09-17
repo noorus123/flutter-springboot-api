@@ -1,5 +1,6 @@
 package com.app.family.controller;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,7 +19,7 @@ public class PersonalInfoController {
 	@RequestMapping(value = "/addUserPersonalInfo", method = RequestMethod.POST)
 	public PersonalInfo addUserPersonalInfo(@RequestBody PersonalInfo user) {
 		System.out.println("executing ::: addUserPersonalInfo");
-		PersonalInfo usr = null;		
+		PersonalInfo usr = null;
 		try {			
 			usr = service.saveUserPersonalInfo(user);			
 		}catch (Exception e) {
@@ -27,5 +28,10 @@ public class PersonalInfoController {
 		return usr;
 	}
 	
-	
+	@RequestMapping(value="/getUserPersonalInfo/{loginId}", method = RequestMethod.GET)
+    public PersonalInfo checkIfPersonalInfoExist(@PathVariable(value = "loginId") String loginId) {
+		System.out.println("executing ::: checkIfPersonalInfoExist");
+		PersonalInfo usr = service.getUserPersonalInfoByLoginId(loginId);
+		return usr!=null ? usr : null; 		
+	}	
 }

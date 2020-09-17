@@ -8,6 +8,7 @@ import com.app.family.models.PersonalInfo;
 
 @Repository
 public interface PersonalInfoRepository extends MongoRepository<PersonalInfo, String> {
-		
+
+	public PersonalInfo findByPersonalId(String personalId);
 	
 }
