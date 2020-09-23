@@ -17,12 +17,12 @@ public class PersonalInfo {
 	private String motherName;
 	private String gender;
 	private String birthday;
-	private String martialStatus;
+	private Marital marital;
 	private List<Contact> contacts;
 	private List<Degree> education;
 	private List<Location> locations;	
 	private List<Profession> professions; 
-	private List<String> subscribedFamilies;
+	private List<SubscribedFamily> subscribedFamilies;
 	private List<String> familiesAdmin;
 	
 	public PersonalInfo() {
@@ -83,14 +83,14 @@ public class PersonalInfo {
 
 	public void setGender(String gender) {
 		this.gender = gender;
+	}	
+
+	public Marital getMarital() {
+		return marital;
 	}
 
-	public String getMartialStatus() {
-		return martialStatus;
-	}
-
-	public void setMartialStatus(String martialStatus) {
-		this.martialStatus = martialStatus;
+	public void setMarital(Marital marital) {
+		this.marital = marital;
 	}
 
 	public List<Degree> getEducation() {
@@ -124,12 +124,12 @@ public class PersonalInfo {
 	public void setProfessions(List<Profession> professions) {
 		this.professions = professions;
 	}
-
-	public List<String> getSubscribedFamilies() {
+	
+	public List<SubscribedFamily> getSubscribedFamilies() {
 		return subscribedFamilies;
 	}
 
-	public void setSubscribedFamilies(List<String> subscribedFamilies) {
+	public void setSubscribedFamilies(List<SubscribedFamily> subscribedFamilies) {
 		this.subscribedFamilies = subscribedFamilies;
 	}
 
@@ -145,10 +145,9 @@ public class PersonalInfo {
 	public String toString() {
 		return "PersonalInfo [_id=" + _id + ", personalId=" + personalId + ", name=" + name + ", fatherName="
 				+ fatherName + ", motherName=" + motherName + ", gender=" + gender + ", birthday=" + birthday
-				+ ", martialStatus=" + martialStatus + ", contacts=" + contacts + ", education=" + education
-				+ ", locations=" + locations + ", professions=" + professions + ", subscribedFamilies="
-				+ subscribedFamilies + ", familiesAdmin=" + familiesAdmin + "]";
+				+ ", marital=" + marital + ", contacts=" + contacts + ", education=" + education + ", locations="
+				+ locations + ", professions=" + professions + ", subscribedFamilies=" + subscribedFamilies
+				+ ", familiesAdmin=" + familiesAdmin + "]";
 	}
-	
 	
 }

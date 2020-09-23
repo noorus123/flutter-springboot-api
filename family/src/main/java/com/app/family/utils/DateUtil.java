@@ -40,5 +40,12 @@ public class DateUtil {
 	        expiryDate = new Date(cal.getTime().getTime()); 
 		}        
         return expiryDate;
-    }	
+    }
+	
+	public static String millisCurrentTime() {
+		long millisDateTime = System.currentTimeMillis();
+		String strDate = String.valueOf(millisDateTime);			
+		return strDate;
+	}
+	
 }

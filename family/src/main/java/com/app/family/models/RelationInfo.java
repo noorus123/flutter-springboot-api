@@ -10,19 +10,27 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class RelationInfo {
 
 	@Id
+	private String _id;
 	private String relationId;
-	private String personalId;
 	private String familyId;
-	private PersonalInfo spouse;
-	private List<PersonalInfo> sibblings;
+	private String spouse;
+	private List<Sibling> siblings;
 	private List<Cousin> cousins;
-	private List<Pibbling> pibblings; //aunt & Uncle
-	private List<Nibbling> nibblings; //niece and nephew
+	private List<Pibbling> pibblings;       //aunt & Uncle
+	private List<Nibbling> nibblings;      //niece and nephew
 	private List<GrandParent> grandParent;
 	private List<GrandChildren> grandChildren;
 	
 	public RelationInfo() {
 		super();
+	}
+
+	public String get_id() {
+		return _id;
+	}
+
+	public void set_id(String _id) {
+		this._id = _id;
 	}
 
 	public String getRelationId() {
@@ -33,14 +41,6 @@ public class RelationInfo {
 		this.relationId = relationId;
 	}
 
-	public String getPersonalId() {
-		return personalId;
-	}
-
-	public void setPersonalId(String personalId) {
-		this.personalId = personalId;
-	}
-
 	public String getFamilyId() {
 		return familyId;
 	}
@@ -48,21 +48,21 @@ public class RelationInfo {
 	public void setFamilyId(String familyId) {
 		this.familyId = familyId;
 	}
-
-	public PersonalInfo getSpouse() {
+	
+	public String getSpouse() {
 		return spouse;
+	}	
+
+	public List<Sibling> getSiblings() {
+		return siblings;
 	}
 
-	public void setSpouse(PersonalInfo spouse) {
+	public void setSiblings(List<Sibling> siblings) {
+		this.siblings = siblings;
+	}
+
+	public void setSpouse(String spouse) {
 		this.spouse = spouse;
-	}
-
-	public List<PersonalInfo> getSibblings() {
-		return sibblings;
-	}
-
-	public void setSibblings(List<PersonalInfo> sibblings) {
-		this.sibblings = sibblings;
 	}
 
 	public List<Cousin> getCousins() {

@@ -93,7 +93,11 @@ public class LoginInfo {
 	public void setGmail(String gmail) {
 		this.gmail = gmail;
 	}
-	
-	
 
+	@Override
+	public String toString() {
+		return "LoginInfo [loginId=" + loginId + ", signInMode=" + signInMode + ", email=" + email + ", password="
+				+ password + ", name=" + name + ", phone=" + phone + ", fbId=" + fbId + ", gmail=" + gmail + ", imgUrl="
+				+ imgUrl + "]";
+	}
 }

@@ -1,29 +1,29 @@
 package com.app.family.models;
 
-import com.app.family.enums.FamilyType;
-
 public class Nibbling {
 
-	private PersonalInfo nibble;
-	private FamilyType familyType;
+	private String nibblingName;
+	private String familyType;
 	
 	public Nibbling() {
 		super();
 	}
 
-	public PersonalInfo getNibble() {
-		return nibble;
+	public String getNibblingName() {
+		return nibblingName;
 	}
 
-	public void setNibble(PersonalInfo nibble) {
-		this.nibble = nibble;
+	public void setNibblingName(String nibblingName) {
+		this.nibblingName = nibblingName;
 	}
 
-	public FamilyType getFamilyType() {
+	public String getFamilyType() {
 		return familyType;
 	}
 
-	public void setFamilyType(FamilyType familyType) {
+	public void setFamilyType(String familyType) {
 		this.familyType = familyType;
-	}	
+	}
+
+	
 }

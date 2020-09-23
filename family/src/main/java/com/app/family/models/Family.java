@@ -10,14 +10,22 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Family {
 	
 	@Id
+	private String _id;
 	private String familyId;
 	private String familyName;
 	private String familyCode;
-	private PersonalInfo adminId; //PersonalInfoId
-	private List<PersonalInfo> members; //List of PersonalInfoId
+	private Admin admin;
+	private List<FamilyMember> familyMembers;
 	
 	public Family() {
 		super();
+	}
+	
+	public String get_id() {
+		return _id;
+	}
+	public void set_id(String _id) {
+		this._id = _id;
 	}
 
 	public String getFamilyId() {
@@ -44,22 +52,19 @@ public class Family {
 		this.familyCode = familyCode;
 	}
 
-	public PersonalInfo getAdminId() {
-		return adminId;
+	public Admin getAdmin() {
+		return admin;
 	}
 
-	public void setAdminId(PersonalInfo adminId) {
-		this.adminId = adminId;
+	public void setAdmin(Admin admin) {
+		this.admin = admin;
 	}
 
-	public List<PersonalInfo> getMembers() {
-		return members;
+	public List<FamilyMember> getFamilyMembers() {
+		return familyMembers;
 	}
 
-	public void setMembers(List<PersonalInfo> members) {
-		this.members = members;
-	}
-
-	
-	
+	public void setFamilyMembers(List<FamilyMember> familyMembers) {
+		this.familyMembers = familyMembers;
+	}	
 }

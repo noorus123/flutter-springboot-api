@@ -1,25 +1,29 @@
 package com.app.family.models;
 
-import com.app.family.enums.FamilyType;
-
 public class Cousin {
 	
-	private PersonalInfo cousin;
-	private FamilyType familyType;
+	private String cousinName;
+	private String familyType;
 	
 	public Cousin() {
 		super();
 	}
-	public PersonalInfo getCousin() {
-		return cousin;
+
+	public String getCousinName() {
+		return cousinName;
 	}
-	public void setCousin(PersonalInfo cousin) {
-		this.cousin = cousin;
+
+	public void setCousinName(String cousinName) {
+		this.cousinName = cousinName;
 	}
-	public FamilyType getFamilyType() {
+
+	public String getFamilyType() {
 		return familyType;
 	}
-	public void setFamilyType(FamilyType familyType) {
+
+	public void setFamilyType(String familyType) {
 		this.familyType = familyType;
-	}	
+	}
+	
+	
 }

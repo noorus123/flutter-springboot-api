@@ -1,13 +1,13 @@
 package com.app.family.enums;
 
-public enum FamilyType {
+public enum FamilySide {
 
-	PARENTAL("parental"),
-	INLAW("in-law");
+	MATERNAL("maternal"),
+	PATERNAL("paternal");
 
 	private final String text;
 
-	private FamilyType(String text) {
+	private FamilySide(String text) {
 		this.text = text;
 	}
 

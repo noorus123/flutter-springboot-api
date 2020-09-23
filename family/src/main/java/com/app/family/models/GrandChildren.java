@@ -1,31 +1,27 @@
 package com.app.family.models;
 
-import com.app.family.enums.FamilyType;
-
 public class GrandChildren {
 	
-	private PersonalInfo grandChildren;
-	private FamilyType familyType;
+	private String grandChildName;
+	private String familyType;
 	
 	public GrandChildren() {
 		super();
 	}
 
-	public PersonalInfo getGrandChildren() {
-		return grandChildren;
+	public String getGrandChildName() {
+		return grandChildName;
 	}
 
-	public void setGrandChildren(PersonalInfo grandChildren) {
-		this.grandChildren = grandChildren;
+	public void setGrandChildName(String grandChildName) {
+		this.grandChildName = grandChildName;
 	}
 
-	public FamilyType getFamilyType() {
+	public String getFamilyType() {
 		return familyType;
 	}
 
-	public void setFamilyType(FamilyType familyType) {
+	public void setFamilyType(String familyType) {
 		this.familyType = familyType;
-	}
-	
-	
+	}	
 }

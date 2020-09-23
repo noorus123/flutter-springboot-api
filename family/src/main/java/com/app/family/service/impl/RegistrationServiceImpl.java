@@ -54,6 +54,8 @@ public class RegistrationServiceImpl implements RegistrationService {
 		LoginInfo usr = null;
 		if(!StringUtils.isEmpty(loginText) && !StringUtils.isEmpty(signInMode)) {
 			usr = getUserByLoginTextInSignInMode(loginText, signInMode);
+		}else {
+			System.out.println("Invalid login credentials"+ "loginText: " + loginText+ "signInMode: " +  signInMode);
 		}		
 		return usr;	
 	}

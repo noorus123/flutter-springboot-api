@@ -1,29 +1,29 @@
 package com.app.family.models;
 
-import com.app.family.enums.FamilyType;
-
 public class Pibbling {
 
-	private PersonalInfo pibble;
-	private FamilyType familyType;
+	private String pibblingName;
+	private String familyType;
 	
 	public Pibbling() {
 		super();
 	}
-
-	public PersonalInfo getPibble() {
-		return pibble;
+	
+	public String getPibblingName() {
+		return pibblingName;
 	}
 
-	public void setPibble(PersonalInfo pibble) {
-		this.pibble = pibble;
+	public void setPibblingName(String pibblingName) {
+		this.pibblingName = pibblingName;
 	}
 
-	public FamilyType getFamilyType() {
+	public String getFamilyType() {
 		return familyType;
 	}
 
-	public void setFamilyType(FamilyType familyType) {
+	public void setFamilyType(String familyType) {
 		this.familyType = familyType;
 	}
+
+	
 }

@@ -7,9 +7,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import com.app.family.models.Family;
 import com.app.family.models.LoginInfo;
 import com.app.family.models.PersonalInfo;
 import com.app.family.models.VerificationInfo;
+import com.app.family.repository.FamilyRepository;
 import com.app.family.repository.LoginRepository;
 import com.app.family.repository.PersonalInfoRepository;
 import com.app.family.repository.VerificationRepository;
@@ -25,6 +27,9 @@ public class RepositoryService {
 	
 	@Autowired
 	private PersonalInfoRepository personalInfoRepository;
+	
+	@Autowired
+	private FamilyRepository familyRepository;
 
 	public LoginInfo saveLoginInfo(LoginInfo u) {
 		System.out.println("executing ::: saveLoginInfo");
@@ -60,11 +65,11 @@ public class RepositoryService {
 	}
 
 	public LoginInfo getUserByEmail(String email) {
-		System.out.println("dao email :: "+email);
+		System.out.println("executing getUserByEmail :: "+email);
 		LoginInfo usr = null;
 		if(!StringUtils.isEmpty(email)) {
 			usr = loginRepository.findByEmail(email);
-			System.out.println("dao email retrieved user :: "+usr);
+			System.out.println("email retrieved user :: "+usr);
 		}		
 		return usr;
 	}
@@ -89,31 +94,31 @@ public class RepositoryService {
 	}
 
 	public LoginInfo getUserByPhone(String phone) {
-		System.out.println("dao phone :: "+phone);
+		System.out.println("executing getUserByPhone :: "+phone);
 		LoginInfo usr = null;
 		if(!StringUtils.isEmpty(phone)) {
 			usr = loginRepository.findByPhone(phone);
-			System.out.println("dao phone retrieved user :: "+usr);
+			System.out.println("phone retrieved user :: "+usr);
 		}		
 		return usr;
 	}
 	
 	public LoginInfo getUserByFBId(String fbId) {
-		System.out.println("dao phone :: "+ fbId);
+		System.out.println("executing getUserByFBId :: "+ fbId);
 		LoginInfo usr = null;
 		if(!StringUtils.isEmpty(fbId)) {
 			usr = loginRepository.findByFbId(fbId);
-			System.out.println("dao Fb retrieved user :: "+usr);
+			System.out.println("Fb retrieved user :: "+usr);
 		}		
 		return usr;
 	}
 
 	public LoginInfo getUserByGmail(String gmail) {
-		System.out.println("dao gmail :: "+gmail);
+		System.out.println("executing getUserByGmail :: "+gmail);
 		LoginInfo usr = null;
 		if(!StringUtils.isEmpty(gmail)) {
 			usr = loginRepository.findByGmail(gmail);
-			System.out.println("dao gmail retrieved user :: "+usr);
+			System.out.println("gmail retrieved user :: "+usr);
 		}		
 		return usr;
 	}
@@ -128,13 +133,22 @@ public class RepositoryService {
 	}
 
 	public PersonalInfo getPersonalInfoByPersonalId(String loginId) {
-		System.out.println("dao :: "+ loginId);
+		System.out.println("executing ::: getPersonalInfoByPersonalId "+ loginId);
 		PersonalInfo usr = null;
 		if(!StringUtils.isEmpty(loginId)) {
 			usr = personalInfoRepository.findByPersonalId(loginId);
-			System.out.println("dao retrieved user :: "+usr);
+			System.out.println("retrieved PersonalInfo of user :: "+usr);
 		}		
 		return usr;
+	}
+
+	public Family saveFamilyAccount(Family family) {		
+		System.out.println("executing ::: saveFamilyAccount");
+		Family f = null;
+		if(family != null) {
+			f = familyRepository.save(family);
+		}
+		return f;		
 	}
 
 }
