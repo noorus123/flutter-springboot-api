@@ -18,6 +18,9 @@ public class PersonalInfo {
 	private String gender;
 	private String birthday;
 	private Marital marital;
+	private boolean isChildren;
+	private int childCount;
+	private List<Child> children;
 	private List<Contact> contacts;
 	private List<Degree> education;
 	private List<Location> locations;	
@@ -92,6 +95,14 @@ public class PersonalInfo {
 	public void setMarital(Marital marital) {
 		this.marital = marital;
 	}
+	
+	public List<Child> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<Child> children) {
+		this.children = children;
+	}
 
 	public List<Degree> getEducation() {
 		return education;
@@ -141,13 +152,31 @@ public class PersonalInfo {
 		this.familiesAdmin = familiesAdmin;
 	}
 
+	public boolean getIsChildren() {
+		return isChildren;
+	}
+
+	public void setIsChildren(boolean isChildren) {
+		this.isChildren = isChildren;
+	}	
+
+	public int getChildCount() {
+		return childCount;
+	}
+
+	public void setChildCount(int childCount) {
+		this.childCount = childCount;
+	}
+
+	
+
 	@Override
 	public String toString() {
 		return "PersonalInfo [_id=" + _id + ", personalId=" + personalId + ", name=" + name + ", fatherName="
 				+ fatherName + ", motherName=" + motherName + ", gender=" + gender + ", birthday=" + birthday
-				+ ", marital=" + marital + ", contacts=" + contacts + ", education=" + education + ", locations="
-				+ locations + ", professions=" + professions + ", subscribedFamilies=" + subscribedFamilies
-				+ ", familiesAdmin=" + familiesAdmin + "]";
+				+ ", marital=" + marital + ", isChildren=" + isChildren + ", childCount=" + childCount + ", children="
+				+ children + ", contacts=" + contacts + ", education=" + education + ", locations=" + locations
+				+ ", professions=" + professions + ", subscribedFamilies=" + subscribedFamilies + ", familiesAdmin="
+				+ familiesAdmin + "]";
 	}
-	
 }

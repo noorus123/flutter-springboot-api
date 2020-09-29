@@ -7,10 +7,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import com.app.family.models.ApprovalRequest;
 import com.app.family.models.Family;
 import com.app.family.models.LoginInfo;
 import com.app.family.models.PersonalInfo;
 import com.app.family.models.VerificationInfo;
+import com.app.family.repository.ApprovalRequestRepository;
 import com.app.family.repository.FamilyRepository;
 import com.app.family.repository.LoginRepository;
 import com.app.family.repository.PersonalInfoRepository;
@@ -30,6 +32,9 @@ public class RepositoryService {
 	
 	@Autowired
 	private FamilyRepository familyRepository;
+
+	@Autowired
+	private ApprovalRequestRepository approvalRequestRepository;
 
 	public LoginInfo saveLoginInfo(LoginInfo u) {
 		System.out.println("executing ::: saveLoginInfo");
@@ -151,4 +156,68 @@ public class RepositoryService {
 		return f;		
 	}
 
+	public ApprovalRequest saveApprovalRequest(ApprovalRequest request) {
+		System.out.println("executing ::: saveApprovalRequest");
+		ApprovalRequest f = null;
+		if(request != null) {
+			f = approvalRequestRepository.save(request);
+		}
+		return f;
+		
+	}
+
+	public Family getFamilyByCode(String text) {
+		System.out.println("executing getFamilyByCode :: "+text);
+		Family family = null;
+		if(!StringUtils.isEmpty(text)) {
+			family = familyRepository.findByFamilyCode(text);
+			System.out.println("retrieved family :: "+family);
+		}		
+		return family;
+	}
+	public Family getFamilyByFamilyId(String familyId) {
+		System.out.println("executing getFamilyByFamilyId :: "+familyId);
+		Family family = null;
+		if(!StringUtils.isEmpty(familyId)) {
+			family = familyRepository.findByFamilyId(familyId);
+			System.out.println("retrieved family :: "+family);
+		}		
+		return family;
+	}
+
+	public List<ApprovalRequest> getAllApprovalRequestForAdmin(String adminId) {
+		System.out.println("executing getAllApprovalRequestForAdmin :: "+adminId);
+		List<ApprovalRequest> requestList = null;
+		if(!StringUtils.isEmpty(adminId)) {
+			requestList = approvalRequestRepository.findByAdminId(adminId);
+			System.out.println("retrieved AllApprovalRequestForAdmin :: "+ requestList);
+		}		
+		return requestList;
+	}
+
+	public ApprovalRequest deleteApprovalRequest(ApprovalRequest request) {
+		System.out.println("executing ::: deleteApprovalRequest");
+		ApprovalRequest appReq = (request != null) ? getApprovalRequestByApprovalId(request.getApprovalId()) : null;
+		if(appReq != null) {
+			try {
+			approvalRequestRepository.delete(appReq);
+			System.out.println("rejected approval request successfully ");
+			}catch(Exception e) {
+				System.out.println("Not able to reject approval request"+e.getMessage());
+			}
+		}
+		return appReq;
+	}
+
+	public ApprovalRequest getApprovalRequestByApprovalId(String approvalId) {
+		System.out.println("executing getApprovalRequestByApprovalId :: "+approvalId);
+		ApprovalRequest request = null;
+		if(!StringUtils.isEmpty(approvalId)) {
+			request = approvalRequestRepository.findByApprovalId(approvalId);
+			System.out.println("retrieved approvalId :: "+request);
+		}		
+		return request;
+	}
+
+	
 }

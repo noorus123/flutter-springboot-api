@@ -8,6 +8,9 @@ import com.app.family.models.Family;
 
 @Repository
 public interface FamilyRepository extends MongoRepository<Family, String> {
+	
+	public Family findByFamilyCode(String familyCode);
 
+	public Family findByFamilyId(String familyId);	
 	
 }

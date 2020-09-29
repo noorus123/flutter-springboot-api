@@ -20,10 +20,13 @@ public class PersonalInfoController {
 	public PersonalInfo addUserPersonalInfo(@RequestBody PersonalInfo user) {
 		System.out.println("executing ::: addUserPersonalInfo");
 		PersonalInfo usr = null;
-		try {			
-			usr = service.saveUserPersonalInfo(user);			
-		}catch (Exception e) {
-			System.out.println("Failed adding userPersonalInfo .... "+ e.getMessage());	
+		if (user != null) {
+			System.out.println("executing ::: addUserPersonalInfo with user values " + user.toString());
+			try {
+				usr = service.saveUserPersonalInfo(user);
+			} catch (Exception e) {
+				System.out.println("Failed adding userPersonalInfo .... " + e.getMessage());
+			} 
 		}
 		return usr;
 	}

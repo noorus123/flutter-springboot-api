@@ -9,7 +9,9 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import com.app.family.dao.RepositoryService;
+import com.app.family.enums.JoinFamilyStatus;
 import com.app.family.models.Admin;
+import com.app.family.models.ApprovalRequest;
 import com.app.family.models.Family;
 import com.app.family.models.FamilyDTO;
 import com.app.family.models.FamilyMember;
@@ -75,8 +77,24 @@ public class FamilyServiceImpl implements FamilyService {
 				}
 				PersonalInfo u = repositoryService.savePersonalInfo(personalInfo);
 				if (u != null) {
-					System.out.println(
-							"Family Account linked with Admin, PersonalInfo updated successfully " + u.toString());
+					System.out.println("Family Account linked with Admin, PersonalInfo updated successfully " + u.toString());
+					ApprovalRequest request = new ApprovalRequest();
+					String loginId = dto.getLoginInfo().getLoginId();
+					String approvalId = f.getFamilyCode()+"_"+loginId; 
+					request.setApprovalId(approvalId);
+					request.setRequestStatus(JoinFamilyStatus.APPROVED.getText());
+					request.setAdminId(loginId);
+					request.setMemberId(loginId);
+					request.setFamilySide(dto.getFamilySide());
+					request.setFamilyType(dto.getFamilyType());
+					request.setFamilyId(f.getFamilyId());
+					request.setFamilyName(f.getFamilyName());
+					ApprovalRequest req = repositoryService.saveApprovalRequest(request);
+					if(req != null) {
+						System.out.println("Family Admin Account linked with ApprovalRequest successfully ");
+					} else {
+						System.out.println("Something went wrong while linking ApprovalRequest of Family Account with Admin ");
+					}
 				} else {
 					System.out.println("Something went wrong while linking of Family Account with Admin PersonalInfo ");
 				}
@@ -139,5 +157,104 @@ public class FamilyServiceImpl implements FamilyService {
 		fcode = prefix + suffix;
 		return fcode;
 	}
+
+	@Override
+	public ApprovalRequest createApprovalRequest(ApprovalRequest req) {
+		ApprovalRequest r = null;
+		if(req != null) {
+			ApprovalRequest request = new ApprovalRequest();
+			request.setFamilyId(req.getFamilyId());
+			request.setFamilyName(req.getFamilyName());
+			request.setMemberId(req.getMemberId());
+			request.setMemberName(req.getMemberName());
+			request.setAdminId(req.getAdminId());
+			request.setApprovalId(req.getApprovalId());
+			r = repositoryService.saveApprovalRequest(request);
+		}
+		return r;
+	}
+
+	@Override
+	public Family verifyRequestGetFamilyByFamilyCode(String familyCode, String memberId) {
+		Family family = null;
+		if(!StringUtils.isEmpty(familyCode) && !StringUtils.isEmpty(memberId)) {
+			ApprovalRequest request = repositoryService.getApprovalRequestByApprovalId(familyCode+"_"+memberId);
+			family = (request==null) ? repositoryService.getFamilyByCode(familyCode) : null;
+		}		
+		return family;	
+	}
+
+	@Override
+	public List<ApprovalRequest> getApprovalRequestByAdminId(String adminId) {
+		List<ApprovalRequest> requestList = null;
+		if(!StringUtils.isEmpty(adminId)) {
+			requestList = repositoryService.getAllApprovalRequestForAdmin(adminId);
+		}		
+		return requestList;
+	}
+
+	@Override
+	public ApprovalRequest approveRejectFamilyJoinRequest(ApprovalRequest request) {
+		ApprovalRequest req = null;
+		List<SubscribedFamily> list = null;
+		if(request!=null) {
+			if(request.getRequestStatus().equals(JoinFamilyStatus.REJECTED.getText())){
+				req = repositoryService.saveApprovalRequest(request);
+			}
+			if(request.getRequestStatus().equals(JoinFamilyStatus.APPROVED.getText())) {
+				req = repositoryService.saveApprovalRequest(request);
+				if(req != null && !StringUtils.isEmpty(req.getRequestStatus()) && 
+						req.getRequestStatus().equals(JoinFamilyStatus.APPROVED.getText()) &&
+						!StringUtils.isEmpty(req.getMemberId())) {
+					System.out.println("Request approved successfully");
+					PersonalInfo info = repositoryService.getPersonalInfoByPersonalId(request.getMemberId());
+					SubscribedFamily sf = new SubscribedFamily();
+					sf.setFamilyId(request.getFamilyId());
+					sf.setFamilyName(request.getFamilyName());
+					sf.setFamilySide(request.getFamilySide());
+					sf.setFamilyType(request.getFamilyType());					
+					list = info.getSubscribedFamilies();
+					if(!CollectionUtils.isEmpty(list)) { 
+						list.add(sf);
+					} else {
+						list = new ArrayList<SubscribedFamily>();
+						list.add(sf);
+					}
+					info.setSubscribedFamilies(list);
+					PersonalInfo p = repositoryService.savePersonalInfo(info);
+					if(p != null) {
+						System.out.println("PersonalInfo updated with subscribed families");
+					} else {
+						System.out.println("Not able to update PersonalInfo for adding subscribed families");
+					} 
+					Family f = repositoryService.getFamilyByFamilyId(request.getFamilyId());					
+					if(f != null) {
+						FamilyMember fm = new FamilyMember();
+						fm.setName(request.getMemberName());
+						fm.setPersonalId(request.getMemberId());
+						List<FamilyMember> fList = f.getFamilyMembers();
+						if(!CollectionUtils.isEmpty(fList)) {
+							fList.add(fm);
+						} else {
+							fList = new ArrayList<FamilyMember>(); 
+							fList.add(fm);
+						}
+						f.setFamilyMembers(fList);
+						Family fam = repositoryService.saveFamilyAccount(f);
+						if(fam != null) {
+							System.out.println("familyList updated for user after admin approval");
+						} else {
+							System.out.println("Not able to update familyList for user after admin approval");
+						}						
+					} else {
+						System.out.println("after admin approval, not able to retrieve family");
+					} 
+				}
+			}			
+		}		
+		return req;
+	}
+
+	
 
 }
