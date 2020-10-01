@@ -53,10 +53,10 @@ public class FamilyController {
 		return req;
 	}
 	
-	@RequestMapping(value="/getApprovalRequestList/{adminId}", method = RequestMethod.GET)
-    public List<ApprovalRequest> getApprovalRequestList(@PathVariable(value = "adminId") String adminId) {
+	@RequestMapping(value="/getPendingApprovalList/{adminId}", method = RequestMethod.GET)
+    public List<ApprovalRequest> getPendingApprovalList(@PathVariable(value = "adminId") String adminId) {
 		System.out.println("executing ::: getApprovalRequestList");
-		List<ApprovalRequest> requestList = service.getApprovalRequestByAdminId(adminId);
+		List<ApprovalRequest> requestList = service.getPendingApprovalRequestByAdminId(adminId);
 		return (!CollectionUtils.isEmpty(requestList))  ? requestList : null; 		
 	}
 	

@@ -11,9 +11,11 @@ import com.app.family.models.ApprovalRequest;
 @Repository
 public interface ApprovalRequestRepository extends MongoRepository<ApprovalRequest, String> {
 
-	List<ApprovalRequest> findByAdminId(String adminId);
+	public List<ApprovalRequest> findByAdminId(String adminId);
 
-	ApprovalRequest findByApprovalId(String approvalId);
+	public ApprovalRequest findByApprovalId(String approvalId);
+
+	public List<ApprovalRequest> findByAdminIdAndRequestStatus(String adminId, String status);
 	
 
 	

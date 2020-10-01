@@ -85,6 +85,7 @@ public class FamilyServiceImpl implements FamilyService {
 					request.setRequestStatus(JoinFamilyStatus.APPROVED.getText());
 					request.setAdminId(loginId);
 					request.setMemberId(loginId);
+					request.setMemberName(u.getName());
 					request.setFamilySide(dto.getFamilySide());
 					request.setFamilyType(dto.getFamilyType());
 					request.setFamilyId(f.getFamilyId());
@@ -185,10 +186,10 @@ public class FamilyServiceImpl implements FamilyService {
 	}
 
 	@Override
-	public List<ApprovalRequest> getApprovalRequestByAdminId(String adminId) {
+	public List<ApprovalRequest> getPendingApprovalRequestByAdminId(String adminId) {
 		List<ApprovalRequest> requestList = null;
 		if(!StringUtils.isEmpty(adminId)) {
-			requestList = repositoryService.getAllApprovalRequestForAdmin(adminId);
+			requestList = repositoryService.getAllPendingApprovalRequestForAdmin(adminId);
 		}		
 		return requestList;
 	}

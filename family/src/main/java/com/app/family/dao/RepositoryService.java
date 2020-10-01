@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import com.app.family.enums.JoinFamilyStatus;
 import com.app.family.models.ApprovalRequest;
 import com.app.family.models.Family;
 import com.app.family.models.LoginInfo;
@@ -185,12 +186,12 @@ public class RepositoryService {
 		return family;
 	}
 
-	public List<ApprovalRequest> getAllApprovalRequestForAdmin(String adminId) {
+	public List<ApprovalRequest> getAllPendingApprovalRequestForAdmin(String adminId) {
 		System.out.println("executing getAllApprovalRequestForAdmin :: "+adminId);
 		List<ApprovalRequest> requestList = null;
 		if(!StringUtils.isEmpty(adminId)) {
-			requestList = approvalRequestRepository.findByAdminId(adminId);
-			System.out.println("retrieved AllApprovalRequestForAdmin :: "+ requestList);
+			requestList = approvalRequestRepository.findByAdminIdAndRequestStatus(adminId, JoinFamilyStatus.PENDING.getText());
+			System.out.println("retrieved AllPendingApprovalRequestForAdmin :: "+ requestList);
 		}		
 		return requestList;
 	}

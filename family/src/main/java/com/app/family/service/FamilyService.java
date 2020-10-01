@@ -14,7 +14,7 @@ public interface FamilyService {
 
 	public Family verifyRequestGetFamilyByFamilyCode(String text, String memberId);
 
-	public List<ApprovalRequest> getApprovalRequestByAdminId(String adminId);
+	public List<ApprovalRequest> getPendingApprovalRequestByAdminId(String adminId);
 
 	public ApprovalRequest approveRejectFamilyJoinRequest(ApprovalRequest request);
 	
