@@ -162,15 +162,23 @@ public class FamilyServiceImpl implements FamilyService {
 	@Override
 	public ApprovalRequest createApprovalRequest(ApprovalRequest req) {
 		ApprovalRequest r = null;
-		if(req != null) {
-			ApprovalRequest request = new ApprovalRequest();
-			request.setFamilyId(req.getFamilyId());
-			request.setFamilyName(req.getFamilyName());
-			request.setMemberId(req.getMemberId());
-			request.setMemberName(req.getMemberName());
-			request.setAdminId(req.getAdminId());
-			request.setApprovalId(req.getApprovalId());
-			r = repositoryService.saveApprovalRequest(request);
+		if(req != null) {		
+			req.setRequestStatus(JoinFamilyStatus.PENDING.getText());
+			r = repositoryService.saveApprovalRequest(req);
+			if (r != null) {
+				PersonalInfo info = repositoryService.getPersonalInfoByPersonalId(req.getMemberId());
+				if (info == null) {
+					info = new PersonalInfo();
+					info.setPersonalId(req.getMemberId());
+					info.setName(req.getMemberName());
+					PersonalInfo u = repositoryService.savePersonalInfo(info);
+					if (u != null) {
+						System.out.println("approvalrequest ceated successfully and PersonalInfo added");
+					} else {
+						System.out.println("approvalrequest ceated successfully but failed to create PersonalInfo");
+					}
+				} 
+			}
 		}
 		return r;
 	}

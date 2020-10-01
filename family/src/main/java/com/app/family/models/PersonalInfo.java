@@ -11,7 +11,7 @@ public class PersonalInfo {
 	
 	@Id
 	private String _id;
-	private String personalId;
+	private String personalId;  //loginId
 	private String name;
 	private String fatherName;
 	private String motherName;
