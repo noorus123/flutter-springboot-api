@@ -6,7 +6,10 @@ import javax.persistence.Id;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 @Document
+//@JsonInclude(JsonInclude.Include.NON_NULL) 
 public class PersonalInfo {
 	
 	@Id

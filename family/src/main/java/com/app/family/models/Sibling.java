@@ -3,18 +3,20 @@ package com.app.family.models;
 public class Sibling {
 
 	private String siblingName;
-	private String familyType;
+	private String personalId;
 	
-	public String getSibblingName() {
+	public String getPersonalId() {
+		return personalId;
+	}
+	public void setPersonalId(String personalId) {
+		this.personalId = personalId;
+	}
+	public String getSiblingName() {
 		return siblingName;
 	}
-	public void setSibblingName(String sibblingName) {
-		this.siblingName = sibblingName;
+	public void setSiblingName(String siblingName) {
+		this.siblingName = siblingName;
 	}
-	public String getFamilyType() {
-		return familyType;
-	}
-	public void setFamilyType(String familyType) {
-		this.familyType = familyType;
-	}	
+		
+	
 }

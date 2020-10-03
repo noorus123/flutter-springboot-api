@@ -1,10 +1,17 @@
 package com.app.family.models;
 
 public class Cousin {
-	
+
 	private String cousinName;
-	private String familyType;
-	
+	private String personalId;
+
+	public String getPersonalId() {
+		return personalId;
+	}
+	public void setPersonalId(String personalId) {
+		this.personalId = personalId;
+	}
+
 	public Cousin() {
 		super();
 	}
@@ -17,13 +24,4 @@ public class Cousin {
 		this.cousinName = cousinName;
 	}
 
-	public String getFamilyType() {
-		return familyType;
-	}
-
-	public void setFamilyType(String familyType) {
-		this.familyType = familyType;
-	}
-	
-	
 }

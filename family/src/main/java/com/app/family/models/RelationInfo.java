@@ -13,11 +13,13 @@ public class RelationInfo {
 	private String _id;
 	private String relationId;
 	private String familyId;
-	private String spouse;
+	private String personalId;
+	private String fatherInLaw;
+	private String motherInLaw;
 	private List<Sibling> siblings;
 	private List<Cousin> cousins;
-	private List<Pibbling> pibblings;       //aunt & Uncle
-	private List<Nibbling> nibblings;      //niece and nephew
+	private List<Pibbling> pibblings;     //aunt & Uncle
+	private List<Nibbling> nibblings;    //niece and nephew
 	private List<GrandParent> grandParent;
 	private List<GrandChildren> grandChildren;
 	
@@ -45,13 +47,33 @@ public class RelationInfo {
 		return familyId;
 	}
 
+	public String getPersonalId() {
+		return personalId;
+	}
+	
+	public void setPersonalId(String personalId) {
+		this.personalId = personalId;
+	}
+
 	public void setFamilyId(String familyId) {
 		this.familyId = familyId;
 	}
-	
-	public String getSpouse() {
-		return spouse;
-	}	
+
+	public String getFatherInLaw() {
+		return fatherInLaw;
+	}
+
+	public void setFatherInLaw(String fatherInLaw) {
+		this.fatherInLaw = fatherInLaw;
+	}
+
+	public String getMotherInLaw() {
+		return motherInLaw;
+	}
+
+	public void setMotherInLaw(String motherInLaw) {
+		this.motherInLaw = motherInLaw;
+	}
 
 	public List<Sibling> getSiblings() {
 		return siblings;
@@ -59,10 +81,6 @@ public class RelationInfo {
 
 	public void setSiblings(List<Sibling> siblings) {
 		this.siblings = siblings;
-	}
-
-	public void setSpouse(String spouse) {
-		this.spouse = spouse;
 	}
 
 	public List<Cousin> getCousins() {

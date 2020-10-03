@@ -3,8 +3,15 @@ package com.app.family.models;
 public class Nibbling {
 
 	private String nibblingName;
-	private String familyType;
-	
+	private String personalId;
+
+	public String getPersonalId() {
+		return personalId;
+	}
+	public void setPersonalId(String personalId) {
+		this.personalId = personalId;
+	}
+
 	public Nibbling() {
 		super();
 	}
@@ -16,14 +23,4 @@ public class Nibbling {
 	public void setNibblingName(String nibblingName) {
 		this.nibblingName = nibblingName;
 	}
-
-	public String getFamilyType() {
-		return familyType;
-	}
-
-	public void setFamilyType(String familyType) {
-		this.familyType = familyType;
-	}
-
-	
 }

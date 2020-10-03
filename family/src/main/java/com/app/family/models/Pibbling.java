@@ -3,12 +3,15 @@ package com.app.family.models;
 public class Pibbling {
 
 	private String pibblingName;
-	private String familyType;
-	
-	public Pibbling() {
-		super();
+	private String personalId;
+
+	public String getPersonalId() {
+		return personalId;
 	}
-	
+	public void setPersonalId(String personalId) {
+		this.personalId = personalId;
+	}
+
 	public String getPibblingName() {
 		return pibblingName;
 	}
@@ -17,13 +20,4 @@ public class Pibbling {
 		this.pibblingName = pibblingName;
 	}
 
-	public String getFamilyType() {
-		return familyType;
-	}
-
-	public void setFamilyType(String familyType) {
-		this.familyType = familyType;
-	}
-
-	
 }

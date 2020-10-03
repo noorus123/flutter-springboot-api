@@ -1,7 +1,13 @@
 package com.app.family.dao;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -12,12 +18,15 @@ import com.app.family.models.ApprovalRequest;
 import com.app.family.models.Family;
 import com.app.family.models.LoginInfo;
 import com.app.family.models.PersonalInfo;
+import com.app.family.models.PersonalInfoDTO;
 import com.app.family.models.VerificationInfo;
 import com.app.family.repository.ApprovalRequestRepository;
 import com.app.family.repository.FamilyRepository;
 import com.app.family.repository.LoginRepository;
 import com.app.family.repository.PersonalInfoRepository;
+import com.app.family.repository.RelationInfoRepository;
 import com.app.family.repository.VerificationRepository;
+import org.springframework.data.mongodb.core.query.Query;
 
 @Service
 public class RepositoryService {
@@ -33,6 +42,9 @@ public class RepositoryService {
 	
 	@Autowired
 	private FamilyRepository familyRepository;
+	
+	@Autowired
+	private RelationInfoRepository relationInfoRepository;
 
 	@Autowired
 	private ApprovalRequestRepository approvalRequestRepository;
@@ -219,6 +231,24 @@ public class RepositoryService {
 		}		
 		return request;
 	}
+
+
+	public List<PersonalInfoDTO> getAllPersonalInfoSelectedFields() {
+		System.out.println("executing getAllPersonalInfoSelectedFields :: ");
+		List<PersonalInfo> pList = null; 
+		List<PersonalInfoDTO> dtoList = new ArrayList<PersonalInfoDTO>(); 
+		pList =	personalInfoRepository.getAllPersonalInfoNamePIdGender();
+		if(!CollectionUtils.isEmpty(pList)) {
+				pList.forEach((e)->{
+					PersonalInfoDTO dto = new PersonalInfoDTO();
+					BeanUtils.copyProperties(e, dto);
+					dtoList.add(dto);
+				});
+		}		
+		System.out.println("retrieved allPersonalInfoSelectedFields :: "+ pList);
+		return dtoList != null ? dtoList : null; 
+	}
+
 
 	
 }
