@@ -16,12 +16,12 @@ public class RelationInfo {
 	private String personalId;
 	private String fatherInLaw;
 	private String motherInLaw;
-	private List<Sibling> siblings;
-	private List<Cousin> cousins;
-	private List<Pibbling> pibblings;     //aunt & Uncle
-	private List<Nibbling> nibblings;    //niece and nephew
-	private List<GrandParent> grandParent;
-	private List<GrandChildren> grandChildren;
+	private List<PersonalInfoDTO> siblings;
+	private List<PersonalInfoDTO> cousins;
+	private List<PersonalInfoDTO> pibblings; //aunt & Uncle
+	private List<PersonalInfoDTO> nibblings; //niece and nephew
+	private List<PersonalInfoDTO> grandParent;
+	private List<PersonalInfoDTO> grandChildren;
 	
 	public RelationInfo() {
 		super();
@@ -75,51 +75,51 @@ public class RelationInfo {
 		this.motherInLaw = motherInLaw;
 	}
 
-	public List<Sibling> getSiblings() {
+	public List<PersonalInfoDTO> getSiblings() {
 		return siblings;
 	}
 
-	public void setSiblings(List<Sibling> siblings) {
+	public void setSiblings(List<PersonalInfoDTO> siblings) {
 		this.siblings = siblings;
 	}
 
-	public List<Cousin> getCousins() {
+	public List<PersonalInfoDTO> getCousins() {
 		return cousins;
 	}
 
-	public void setCousins(List<Cousin> cousins) {
+	public void setCousins(List<PersonalInfoDTO> cousins) {
 		this.cousins = cousins;
 	}
 
-	public List<Pibbling> getPibblings() {
+	public List<PersonalInfoDTO> getPibblings() {
 		return pibblings;
 	}
 
-	public void setPibblings(List<Pibbling> pibblings) {
+	public void setPibblings(List<PersonalInfoDTO> pibblings) {
 		this.pibblings = pibblings;
 	}
 
-	public List<Nibbling> getNibblings() {
+	public List<PersonalInfoDTO> getNibblings() {
 		return nibblings;
 	}
 
-	public void setNibblings(List<Nibbling> nibblings) {
+	public void setNibblings(List<PersonalInfoDTO> nibblings) {
 		this.nibblings = nibblings;
 	}
 
-	public List<GrandParent> getGrandParent() {
+	public List<PersonalInfoDTO> getGrandParent() {
 		return grandParent;
 	}
 
-	public void setGrandParent(List<GrandParent> grandParent) {
+	public void setGrandParent(List<PersonalInfoDTO> grandParent) {
 		this.grandParent = grandParent;
 	}
 
-	public List<GrandChildren> getGrandChildren() {
+	public List<PersonalInfoDTO> getGrandChildren() {
 		return grandChildren;
 	}
 
-	public void setGrandChildren(List<GrandChildren> grandChildren) {
+	public void setGrandChildren(List<PersonalInfoDTO> grandChildren) {
 		this.grandChildren = grandChildren;
 	}
 }

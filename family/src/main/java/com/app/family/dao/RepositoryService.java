@@ -1,12 +1,7 @@
 package com.app.family.dao;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +14,7 @@ import com.app.family.models.Family;
 import com.app.family.models.LoginInfo;
 import com.app.family.models.PersonalInfo;
 import com.app.family.models.PersonalInfoDTO;
+import com.app.family.models.RelationInfo;
 import com.app.family.models.VerificationInfo;
 import com.app.family.repository.ApprovalRequestRepository;
 import com.app.family.repository.FamilyRepository;
@@ -26,7 +22,6 @@ import com.app.family.repository.LoginRepository;
 import com.app.family.repository.PersonalInfoRepository;
 import com.app.family.repository.RelationInfoRepository;
 import com.app.family.repository.VerificationRepository;
-import org.springframework.data.mongodb.core.query.Query;
 
 @Service
 public class RepositoryService {
@@ -245,8 +240,18 @@ public class RepositoryService {
 					dtoList.add(dto);
 				});
 		}		
-		System.out.println("retrieved allPersonalInfoSelectedFields :: "+ pList);
+		System.out.println("retrieved allPersonalInfoDTO :: "+ pList);
 		return dtoList != null ? dtoList : null; 
+	}
+
+	
+	public RelationInfo saveRelationInfo(RelationInfo relInfo) {
+		System.out.println("executing ::: saveRelationInfo");
+		RelationInfo rel = null;
+		if(relInfo != null) {
+			rel = relationInfoRepository.save(relInfo);
+		}
+		return rel;
 	}
 
 

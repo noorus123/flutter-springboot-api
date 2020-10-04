@@ -17,6 +17,7 @@ public class LoginInfo {
 	private String fbId;
 	private String gmail;
 	private String imgUrl;
+	private String familyId;
 	
 	public LoginInfo() {
 		super();
@@ -94,10 +95,18 @@ public class LoginInfo {
 		this.gmail = gmail;
 	}
 
+	public String getFamilyId() {
+		return familyId;
+	}
+
+	public void setFamilyId(String familyId) {
+		this.familyId = familyId;
+	}
+
 	@Override
 	public String toString() {
 		return "LoginInfo [loginId=" + loginId + ", signInMode=" + signInMode + ", email=" + email + ", password="
 				+ password + ", name=" + name + ", phone=" + phone + ", fbId=" + fbId + ", gmail=" + gmail + ", imgUrl="
-				+ imgUrl + "]";
-	}
+				+ imgUrl + ", familyId=" + familyId + "]";
+	}	
 }
